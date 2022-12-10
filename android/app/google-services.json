@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "809416257585",
+    "project_id": "flash-chat-c3287",
+    "storage_bucket": "flash-chat-c3287.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809416257585:android:291dab2dd512263e95a510",
+        "android_client_info": {
+          "package_name": "com.vandangdung.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809416257585-ngrdcct342bt0vaqvmi39fdesu7ko3nb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ZVTluuYcsm45WWcia_88FG96XQFlITM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809416257585-ngrdcct342bt0vaqvmi39fdesu7ko3nb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
