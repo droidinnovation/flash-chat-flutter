@@ -111,25 +111,30 @@ class MessagesStream extends StatelessWidget {
           );
         }
 
-        final messages = asynSnapshot.data.docs;
+        final messages = asynSnapshot.data.docs.reversed;
         List<MessageBubble> messageBubbles = [];
+
         for (var doc in messages) {
+          final messageSender = doc.get('sender');
           messageBubbles.add(
             MessageBubble(
-              sender: doc.get('sender'),
+              sender: messageSender,
               msg: doc.get('text'),
+              isMe: currentUser.email == messageSender,
             ),
           );
         }
 
         return Expanded(
-            child: ListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 20.0,
+          child: ListView(
+            reverse: true,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 20.0,
+            ),
+            children: messageBubbles,
           ),
-          children: messageBubbles,
-        ));
+        );
       },
     );
   }
@@ -138,15 +143,18 @@ class MessagesStream extends StatelessWidget {
 class MessageBubble extends StatelessWidget {
   final String sender;
   final String msg;
+  final bool isMe;
 
-  const MessageBubble({Key key, this.sender, this.msg}) : super(key: key);
+  const MessageBubble({Key key, this.sender, this.msg, this.isMe})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             sender,
@@ -156,20 +164,26 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
           Material(
-            color: Colors.lightBlue,
+            color: isMe ? Colors.lightBlue : Colors.white,
             elevation: 5.0,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              bottomLeft: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
-            ),
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  )
+                : BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                  ),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 msg,
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.white,
+                  color: isMe ? Colors.white : Colors.black54,
                 ),
               ),
             ),
